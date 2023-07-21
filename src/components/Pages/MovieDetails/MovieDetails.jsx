@@ -1,0 +1,1 @@
+import { MovieDetailsGenres } from "./MovieDetails.styled";

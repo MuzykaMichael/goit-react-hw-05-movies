@@ -15,8 +15,7 @@ const apiRefs = {
 export const fetchTrendsFromApi = async () =>{
   try {
     const response = await axios.get(`${apiRefs.defaultURL}${apiRefs.trendsURL}?api_key=${apiRefs.key}`)
-    console.log(response.data.results)
-    return response.data.results
+    return response.data
   }
   catch (error) {
     console.log(error.message)
