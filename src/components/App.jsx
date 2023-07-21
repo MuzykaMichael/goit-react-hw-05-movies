@@ -1,4 +1,7 @@
+import { fetchTrendsFromApi } from "api/fetchFromApi";
+
 export const App = () => {
+  fetchTrendsFromApi()
   return (
     <div
       style={{
