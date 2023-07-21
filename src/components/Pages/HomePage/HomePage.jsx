@@ -1,9 +1,9 @@
 import { HomePageHeader, HomePageList, HomePageListItem } from "./HomePage.styled";
 import { useState, useEffect } from "react";
 import { fetchTrendsFromApi } from "api/fetchFromApi";
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
-export const HomePage = (response) =>{
+export const HomePage = () =>{
     const [trends, setTrends] = useState([]);
     useEffect(() =>{
         const getTrends = async () =>{
@@ -24,7 +24,7 @@ export const HomePage = (response) =>{
             <HomePageList>
                 {trends.map(({title,id})=>
                     <HomePageListItem key={id}>
-                        <a href='/'>{title}</a>
+                        <Link to={`/movies/${id}`}>{title}</Link>
                     </HomePageListItem>
                 )}
             </HomePageList>
