@@ -6,7 +6,7 @@ import {SearchForm,
 import { HomePageList, HomePageListItem } from "../HomePage/HomePage.styled";
 import { fetchMovieByQuery } from 'api/fetchFromApi';
 import {useState, useEffect,} from 'react'
-import {useSearchParams,Link} from 'react-router-dom'
+import {useSearchParams,Link,useLocation} from 'react-router-dom'
 
 
 export const SearchMovie = () =>{
@@ -14,6 +14,7 @@ export const SearchMovie = () =>{
     const [load,setLoad] = useState([]);
     const [searchParams,setSearchParams] = useSearchParams()
     const query = searchParams.get('query');
+    const location = useLocation();
 
     useEffect(()=>{
         if (query===null){
@@ -67,7 +68,7 @@ export const SearchMovie = () =>{
                     {load.map(({id,title})=>{
                     return(
                     <HomePageListItem key={id}>
-                        <Link to={`/movies/${id}`}>{title}</Link>
+                        <Link to={`/movies/${id}`} state={{from:location}}>{title}</Link>
                     </HomePageListItem>
                     )
                     })}

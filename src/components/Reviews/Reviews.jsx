@@ -2,7 +2,6 @@ import { ReviewList } from "./Reviews.styled";
 import { useEffect,useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieReviews } from "api/fetchFromApi";
-import {MovieDetails} from '../Pages/MovieDetails/MovieDetails'
 
 export const Reviews = () =>{
 const [review,setReview] = useState([]);
@@ -28,7 +27,6 @@ useEffect(()=>{
 
 return(
     <div>
-        <MovieDetails/>
         <ReviewList>
             {review&&review.map(({id,author,content})=>{
                 return(
@@ -38,6 +36,7 @@ return(
                     </li>
                 )
             })}
+            {!review&&<div>Sorry, no reviews on this film.</div>}
         </ReviewList>
     </div>
 )

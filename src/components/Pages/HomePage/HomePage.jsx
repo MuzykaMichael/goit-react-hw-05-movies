@@ -1,10 +1,11 @@
 import { HomePageHeader, HomePageList, HomePageListItem } from "./HomePage.styled";
 import { useState, useEffect } from "react";
 import { fetchTrendsFromApi } from "api/fetchFromApi";
-import {Link} from 'react-router-dom'
+import {Link,useLocation} from 'react-router-dom'
 
 export const HomePage = () =>{
     const [trends, setTrends] = useState([]);
+    const location = useLocation();
     
     useEffect(() =>{
         const getTrends = async () =>{
@@ -26,7 +27,7 @@ export const HomePage = () =>{
             <HomePageList>
                 {trends.map(({title,id})=>
                     <HomePageListItem key={id}>
-                        <Link to={`/movies/${id}`}>{title}</Link>
+                        <Link to={`/movies/${id}`} state={{from:location}}>{title}</Link>
                     </HomePageListItem>
                 )}
             </HomePageList>

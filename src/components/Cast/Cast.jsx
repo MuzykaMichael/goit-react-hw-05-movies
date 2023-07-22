@@ -4,7 +4,7 @@ import {useState,useEffect} from 'react'
 import {fetchMovieCredits} from '../../api/fetchFromApi'
 import { useParams } from 'react-router-dom'
 import defaultImage from '../defaultImage.png'
-import {MovieDetails} from '../Pages/MovieDetails/MovieDetails'
+
 
 export const Cast = () =>{
 const [cast,setCast] = useState([])
@@ -28,8 +28,7 @@ useEffect(()=>{
 
 return(
     <div>
-        <MovieDetails/>
-        <CastList>
+        {cast&&(<CastList>
             {cast.map(({id,character,name,profile_path})=>{
                 return(
                     <CastListItem key={id}>
@@ -39,7 +38,8 @@ return(
                     </CastListItem>
                 )
             })}
-        </CastList>
+            {!cast&&<div>We can't find actors.</div>}
+        </CastList>)}
     </div>
 )
 

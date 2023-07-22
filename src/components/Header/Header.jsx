@@ -1,14 +1,21 @@
-import { Link } from "react-router-dom"
-
-
+import { Link, Outlet } from "react-router-dom"
+import { Suspense } from "react"
+import { HeaderCont } from "./Header.styled"
 export const Header = () =>{
 
 
 
     return(
-        <header>
+        <>
+        <HeaderCont>
             <Link to="/">Home</Link>
             <Link to="/movies">SearchMovies</Link>
-        </header>
+        </HeaderCont>
+        <main>
+        <Suspense fallback={<div>Loading...</div>}>
+            <Outlet/>
+        </Suspense>
+        </main>
+        </>
     )
 }
