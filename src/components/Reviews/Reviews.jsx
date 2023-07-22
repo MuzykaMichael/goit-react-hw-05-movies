@@ -1,13 +1,12 @@
 import { ReviewList } from "./Reviews.styled";
 import { useEffect,useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchMovieReviews } from "api/fetchFromApi";
 import {MovieDetails} from '../Pages/MovieDetails/MovieDetails'
 
 export const Reviews = () =>{
 const [review,setReview] = useState([]);
 const {movieId} = useParams();
-const location=useLocation()
 
 useEffect(()=>{
     const fetcher = async () =>{
@@ -18,7 +17,6 @@ useEffect(()=>{
                 const response = await fetchMovieReviews(movieId);
                 console.log(response)
                 setReview(response.results)
-                console.log(location)
             } catch(error){
                 console.log(error.message)
             }
