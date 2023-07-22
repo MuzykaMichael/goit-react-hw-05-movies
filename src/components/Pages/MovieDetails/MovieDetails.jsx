@@ -6,14 +6,13 @@ import { MovieDetailsTopDiv,
     MovieDetailsDescription,
 } from "./MovieDetails.styled";
 import { useEffect, useState } from "react";
-import { useLocation, useParams, Link, Navigate } from "react-router-dom";
+import {  useParams, Link } from "react-router-dom";
 import {fetchMovieDetails} from "api/fetchFromApi";
 import defaultImage from '../../defaultImage.png';
-import { Cast } from "components/Cast/Cast";
+
 
 export const MovieDetails = () =>{
     const [info,setInfo] = useState({});
-    const location = useLocation();
     const {movieId} = useParams();
 
     
@@ -41,7 +40,7 @@ export const MovieDetails = () =>{
     return(
         <>
         <MovieDetailsTopDiv>
-            <img src={!info.poster_path?defaultImage:`https://image.tmdb.org/t/p/w500${info.poster_path}`} />
+            <img src={!info.poster_path?defaultImage:`https://image.tmdb.org/t/p/w500${info.poster_path}`} alt={info.title} />
             <MovieDetailsHeader>{info.title}</MovieDetailsHeader>
             <MovieDetailsDescription>{info.original_title}, User Score:{info.vote_average*10}%</MovieDetailsDescription>
             <MovieDetailsOverview>Overview</MovieDetailsOverview>
@@ -61,10 +60,10 @@ export const MovieDetails = () =>{
             <p>Additional information</p>
             <ul>
                 <li>
-                    <Link to={"cast"} element={<Navigate to={<Cast/>}/>} state={location}>Cast</Link>
+                    <Link to="cast">Cast</Link>
                 </li>
                 <li>
-                    
+                    <Link to="reviews">Reviews</Link>
                 </li>
             </ul>
         </MovieDetailsBotDiv>

@@ -1,23 +1,25 @@
 import { HomePage } from "./Pages/HomePage/HomePage";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {  Routes, Route, Navigate } from "react-router-dom";
 import {SearchMovie} from './Pages/SearchMovie/SearchMovie'
 import { MovieDetails } from "./Pages/MovieDetails/MovieDetails";
-import {Cast} from '../components/Cast/Cast'
+import {Cast} from '../components/Cast/Cast';
+import { Reviews } from "./Reviews/Reviews";
+import { Header } from "./Header/Header";
 
 export const App = () => {
   return (
-
-    <BrowserRouter basename="/">
-    <div>
+      <>
       <Routes>
-        <Route path="/" element={<HomePage/>}></Route>
-        <Route path="movies" element={<SearchMovie/>}></Route>
-        <Route path="/movies/:movieId" element={<MovieDetails/>}/>
-        <Route path="/movies/:movieId/cast" element={<Cast/>}/>
-        <Route path="*" element={<Navigate to={Routes.HomePage} replace/>}/>
+        <Route path="/" element={<Header />} >
+          <Route index element={<HomePage />} />
+          <Route path="movies" element={<SearchMovie />} />
+          <Route path="movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route> 
       </Routes>
-    </div>
-    </BrowserRouter>
-    
+      </>
   );
 };

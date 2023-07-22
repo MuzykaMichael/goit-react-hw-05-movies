@@ -4,7 +4,7 @@ import {useState,useEffect} from 'react'
 import {fetchMovieCredits} from '../../api/fetchFromApi'
 import { useLocation, useParams } from 'react-router-dom'
 import defaultImage from '../defaultImage.png'
-
+import {MovieDetails} from '../Pages/MovieDetails/MovieDetails'
 
 export const Cast = () =>{
 const location = useLocation();
@@ -29,6 +29,7 @@ useEffect(()=>{
 
 return(
     <div>
+        <MovieDetails/>
         <CastList>
             {cast.map(({id,character,name,profile_path})=>{
                 return(

@@ -5,11 +5,13 @@ import {Link} from 'react-router-dom'
 
 export const HomePage = () =>{
     const [trends, setTrends] = useState([]);
+    
     useEffect(() =>{
         const getTrends = async () =>{
             try{
                 const {results} = await fetchTrendsFromApi();
                 setTrends(results)
+
             } catch(error){
                 console.log(error.message)
             }
@@ -17,7 +19,7 @@ export const HomePage = () =>{
         getTrends();
     },[])
 
-
+    
     return (
         <div>
             <HomePageHeader>Trending Today</HomePageHeader>
