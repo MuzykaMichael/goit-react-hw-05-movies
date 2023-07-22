@@ -56,8 +56,11 @@ export const MovieDetails = () =>{
     return(
         <>
         <MovieDetailsTopDiv>
+            <div>
             <Link to={location.state.from}>Go back</Link>
             <img src={!info.poster_path?defaultImage:`https://image.tmdb.org/t/p/w500${info.poster_path}`} alt={info.title} />
+            </div>
+            <div>
             <MovieDetailsHeader>{info.title}</MovieDetailsHeader>
             <MovieDetailsDescription>{info.original_title}, User Score:{info.vote_average*10}%</MovieDetailsDescription>
             <MovieDetailsOverview>Overview</MovieDetailsOverview>
@@ -72,15 +75,16 @@ export const MovieDetails = () =>{
                     )
                 })}
             </ul>
+            </div>
         </MovieDetailsTopDiv>
         <MovieDetailsBotDiv>
             <p>Additional information</p>
             <ul>
                 <li>
-                    <Link to="cast" onClick={handleCastClick}>Cast</Link>
+                    <Link to="cast" onClick={handleCastClick} state={{from:location}}>Cast</Link>
                 </li>
                 <li>
-                    <Link to="reviews" onClick={handleReviewsClick}>Reviews</Link>
+                    <Link to="reviews" onClick={handleReviewsClick} state={{from:location}}>Reviews</Link>
                 </li>
             </ul>
         </MovieDetailsBotDiv>

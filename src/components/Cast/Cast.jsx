@@ -32,7 +32,7 @@ return(
             {cast.map(({id,character,name,profile_path})=>{
                 return(
                     <CastListItem key={id}>
-                        <img src={!profile_path?defaultImage:`https://image.tmdb.org/t/p/w500${profile_path}`} alt={name}/>
+                        <img src={!profile_path?defaultImage:`https://image.tmdb.org/t/p/w200${profile_path}`} alt={name}/>
                         <p>{name}</p>
                         <p>Character:{character}</p>
                     </CastListItem>
