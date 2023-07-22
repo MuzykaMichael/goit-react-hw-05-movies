@@ -2,12 +2,11 @@ import {CastList,
     CastListItem,} from './Cast.styled'
 import {useState,useEffect} from 'react'
 import {fetchMovieCredits} from '../../api/fetchFromApi'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import defaultImage from '../defaultImage.png'
 import {MovieDetails} from '../Pages/MovieDetails/MovieDetails'
 
 export const Cast = () =>{
-const location = useLocation();
 const [cast,setCast] = useState([])
 const {movieId} = useParams(); 
 useEffect(()=>{
