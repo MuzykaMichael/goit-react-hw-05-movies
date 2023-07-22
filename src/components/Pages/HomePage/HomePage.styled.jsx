@@ -11,3 +11,4 @@ export const HomePageList = styled.ul`
 export const HomePageListItem = styled.li`
 
 `;
+

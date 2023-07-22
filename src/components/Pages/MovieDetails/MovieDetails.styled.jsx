@@ -8,15 +8,19 @@ export const MovieDetailsHeader = styled.h2`
 
 `;
 
-export const MovieDetailsOverview = styled.h3`
+export const MovieDetailsOverview = styled.h4`
 
 `;
 
-export const MovieDetailsGenres = styled.h3`
+export const MovieDetailsGenres = styled.h4`
 
 `;
 
 export const MovieDetailsBotDiv = styled.div`
+
+`;
+
+export const MovieDetailsDescription = styled.p`
 
 `;
 

@@ -3,6 +3,7 @@ import { MovieDetailsTopDiv,
     MovieDetailsOverview,
     MovieDetailsGenres,
     MovieDetailsBotDiv,
+    MovieDetailsDescription,
 } from "./MovieDetails.styled";
 import { useEffect, useState } from "react";
 import { useLocation, useParams, Link } from "react-router-dom";
@@ -12,7 +13,8 @@ import defaultImage from '../../defaultImage.png'
 export const MovieDetails = () =>{
     const [info,setInfo] = useState({});
     const location = useLocation();
-    const {movieId} = useParams()
+    const {movieId} = useParams();
+
     
     
     useEffect(()=>{
@@ -23,9 +25,10 @@ export const MovieDetails = () =>{
                 } else {
                     try{
                         const response = await fetchMovieDetails(movieId);
-                        console.log(movieId)
-                        console.log(response)
+                        // console.log(movieId)
+                        // console.log(response)
                         setInfo({title:response.title, overview:response.overview, genres: response.genres,original_title:response.original_title,poster_path:response.poster_path,vote_average:response.vote_average,})
+                        console.log(info.genres)
                     } catch(error){
                         console.log(error.message)
                     }
@@ -35,17 +38,24 @@ export const MovieDetails = () =>{
         fetchDetails();
     },[movieId])
 
-
     return(
         <>
         <MovieDetailsTopDiv>
             <img src={!info.poster_path?defaultImage:`https://image.tmdb.org/t/p/w500${info.poster_path}`} />
             <MovieDetailsHeader>{info.title}</MovieDetailsHeader>
-            <p>({info.original_title},User Score:{info.vote_average})</p>
+            <MovieDetailsDescription>{info.original_title},User Score:{info.vote_average}</MovieDetailsDescription>
             <MovieDetailsOverview>Overview</MovieDetailsOverview>
-            <p>{info.overview}</p>
+            <MovieDetailsDescription>{info.overview}</MovieDetailsDescription>
             <MovieDetailsGenres>Genres</MovieDetailsGenres>
-            <p>{info.genres}</p>
+            <ul>
+                {info.genres?.map(({id,name})=>{
+                    return(
+                    <li key={id}>
+                        <p>{name}</p>
+                    </li>
+                    )
+                })}
+            </ul>
         </MovieDetailsTopDiv>
         <MovieDetailsBotDiv>
             <p>Additional information</p>
