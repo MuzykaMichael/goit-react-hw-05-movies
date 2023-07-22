@@ -25,7 +25,6 @@ export const SearchMovie = () =>{
                 const response = await fetchMovieByQuery(query)
                 if (response.length>0){
                     setLoad(response)
-                    console.log(load)
                 } else {
                     console.log("0 films matching query")
                 }
