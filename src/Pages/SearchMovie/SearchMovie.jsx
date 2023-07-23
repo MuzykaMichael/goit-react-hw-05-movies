@@ -74,3 +74,5 @@ export const SearchMovie = () =>{
     )
 
 }
+
+export default SearchMovie;

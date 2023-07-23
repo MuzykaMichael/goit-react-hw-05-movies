@@ -8,7 +8,7 @@ import { MovieDetailsTopDiv,
 import { useEffect, useState, useRef, Suspense } from "react";
 import {  useParams, Link, useLocation, Outlet } from "react-router-dom";
 import {fetchMovieDetails} from "api/fetchFromApi";
-import defaultImage from '../../defaultImage.png';
+import defaultImage from '../../components/defaultImage.png';
 import { Loader } from "components/Loader/Loader";
 
 
@@ -54,13 +54,13 @@ export const MovieDetails = () =>{
             <MovieDetailsDescription>{info.overview}</MovieDetailsDescription>
             <MovieDetailsGenres>Genres</MovieDetailsGenres>
             <ul>
-                {info.genres.length>0?info.genres.map(({id,name})=>{
+                {info.genres?.map(({id,name})=>{
                     return(
                     <li key={id}>
                         <p>{name}</p>
                     </li>
                     )
-                }):<p>No information for that film</p>}
+                })}
             </ul>
             </div>
         </MovieDetailsTopDiv>
@@ -82,3 +82,5 @@ export const MovieDetails = () =>{
     )
 }
 
+
+export default MovieDetails;
