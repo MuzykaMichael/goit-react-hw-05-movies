@@ -5,6 +5,7 @@ import { MovieDetails } from "./Pages/MovieDetails/MovieDetails";
 import {Cast} from '../components/Cast/Cast';
 import { Reviews } from "./Reviews/Reviews";
 import { Header } from "./Header/Header";
+import { lazy } from "react";
 
 export const App = () => {
   return (

@@ -1,20 +1,24 @@
-import { HomePageHeader, HomePageList, HomePageListItem } from "./HomePage.styled";
+import { HomePageHeader,} from "./HomePage.styled";
 import { useState, useEffect } from "react";
 import { fetchTrendsFromApi } from "api/fetchFromApi";
-import {Link,useLocation} from 'react-router-dom'
+import { MovieList } from "components/MovieList/MovieList";
+import { Loader } from "components/Loader/Loader";
 
 export const HomePage = () =>{
     const [trends, setTrends] = useState([]);
-    const location = useLocation();
-    
+    const [isLoading,setIsLoading] = useState(false);
+    const [error,setError] = useState(false);
+
     useEffect(() =>{
+        setIsLoading(true);
         const getTrends = async () =>{
             try{
                 const {results} = await fetchTrendsFromApi();
-                setTrends(results)
-
+                setTrends(results);
             } catch(error){
-                console.log(error.message)
+                setError(error.message);
+            } finally {
+                setIsLoading(false);
             }
         };
         getTrends();
@@ -22,15 +26,11 @@ export const HomePage = () =>{
 
     
     return (
-        <div>
+        <>
             <HomePageHeader>Trending Today</HomePageHeader>
-            <HomePageList>
-                {trends.map(({title,id})=>
-                    <HomePageListItem key={id}>
-                        <Link to={`/movies/${id}`} state={{from:location}}>{title}</Link>
-                    </HomePageListItem>
-                )}
-            </HomePageList>
-        </div>
+            {isLoading&&<Loader/>}
+            {error&&<p>Oops, something went wrong...</p>}
+            {trends.length>0?<MovieList movies={trends}/>:<p>No films for this day,come back later.</p>}
+        </>
     )
 }

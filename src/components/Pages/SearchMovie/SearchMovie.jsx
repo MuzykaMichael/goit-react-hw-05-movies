@@ -3,35 +3,37 @@ import {SearchForm,
     FormButton,
     SearchMovieDiv,
     } from './SearchMovie.styled';
-import { HomePageList, HomePageListItem } from "../HomePage/HomePage.styled";
 import { fetchMovieByQuery } from 'api/fetchFromApi';
 import {useState, useEffect,} from 'react'
-import {useSearchParams,Link,useLocation} from 'react-router-dom'
-
+import {useSearchParams} from 'react-router-dom'
+import { MovieList } from 'components/MovieList/MovieList';
+import { Loader } from 'components/Loader/Loader';
 
 export const SearchMovie = () =>{
-    const [inputTracker,setInputTracker] = useState('');
-    const [load,setLoad] = useState([]);
+    const [inputValue,setInputValue] = useState('');
+    const [movies,setMovies] = useState([]);
     const [searchParams,setSearchParams] = useSearchParams()
     const query = searchParams.get('query');
-    const location = useLocation();
+    const [isLoading,setIsLoading] = useState(false);
+    const [error,setError] = useState(false);
 
     useEffect(()=>{
         if (query===null){
             return;
         }
-
+        setIsLoading(true);
         const fetcher = async() =>{
             try {
                 const response = await fetchMovieByQuery(query)
-                if (response.length>0){
-                    setLoad(response)
-                } else {
-                    console.log("0 films matching query")
-                }
+                if (response.length===0){
+                    console.alert("0 films matching query")
+                } 
+                setMovies(response)
             }
             catch(error){
-                console.log(error.message)
+                setError(error.message)
+            } finally{
+                setIsLoading(false);
             }
         }
         fetcher();
@@ -39,7 +41,7 @@ export const SearchMovie = () =>{
 
     const handleSubmit = evt =>{
         evt.preventDefault();
-        const q = inputTracker.trim();
+        const q = inputValue.trim();
         if (q!==''){
             setSearchParams({query:q})
         } else {
@@ -49,7 +51,7 @@ export const SearchMovie = () =>{
     }
 
     const handleChange = evt =>{
-        setInputTracker(evt.target.value);
+        setInputValue(evt.target.value);
     }
 
 
@@ -60,19 +62,13 @@ export const SearchMovie = () =>{
                 type='text'
                 name='query'
                 onChange={handleChange}
-                value={inputTracker}/>
+                value={inputValue}/>
                 <FormButton>Search</FormButton>
             </SearchForm>
             <SearchMovieDiv>
-                <HomePageList>
-                    {load.map(({id,title})=>{
-                    return(
-                    <HomePageListItem key={id}>
-                        <Link to={`/movies/${id}`} state={{from:location}}>{title}</Link>
-                    </HomePageListItem>
-                    )
-                    })}
-                </HomePageList>
+                {isLoading&&<Loader/>}
+                {error&&<p>Oops, something went wrong...</p>}
+                {movies.length>0?<MovieList movies={movies}/>:<div>No films matching your query</div>}
             </SearchMovieDiv>
         </div>
     )
